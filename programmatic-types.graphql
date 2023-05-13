@@ -36,6 +36,15 @@ type UserPaginator {
   data: [User!]!
 }
 
+"A paginated list of Post items."
+type PostPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Post items."
+  data: [Post!]!
+}
+
 "Directions for ordering a list of records."
 enum SortOrder {
   "Sort records in ascending order."

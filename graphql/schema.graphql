@@ -54,3 +54,20 @@ type Post {
     updated_at: DateTime!
 }
 
+type Mutation {
+    createPost(
+        user_id: ID!
+        title: String! @rules(apply: ["required", "min:3"])
+        body: String! @rules(apply: ["required", "min:10"])
+    ): Post @create
+
+    updatePost(
+        id: ID!
+        title: String! @rules(apply: ["required", "min:3"])
+        body: String! @rules(apply: ["required", "min:10"])
+    ): Post @update
+
+    deletePost(
+        id: ID!
+    ): Post @delete
+}

@@ -1,13 +1,13 @@
 import './assets/main.css'
 
-import { createApp, provide } from 'vue'
+import { createApp, provide, h } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
 
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
-import { provideApolloClient } from "@vue/apollo-composable";
+import { DefaultApolloClient } from "@vue/apollo-composable";
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
@@ -24,9 +24,13 @@ const apolloClient = new ApolloClient({
     cache,
 })
 
-const app = createApp(App)
+const app = createApp({
+    setup () {
+        provide(DefaultApolloClient, apolloClient)
+    },
 
+    render: () => h(App),
+})
 app.use(createPinia())
 app.use(router)
-app.provide('default', provideApolloClient(apolloClient))
 app.mount('#app')

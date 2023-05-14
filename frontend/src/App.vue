@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import gql from 'graphql-tag'
-import { useQuery } from '@vue/apollo-composable'
+import { onMounted, ref, watch } from "vue";
+import { RouterLink, RouterView } from "vue-router";
+import HelloWorld from "./components/HelloWorld.vue";
+import gql from "graphql-tag";
+import { useQuery } from "@vue/apollo-composable";
 
 const { posts, loading } = useQuery(gql`
         query {
@@ -14,62 +14,11 @@ const { posts, loading } = useQuery(gql`
             }
           }
         }
-    `)
+    `);
 
 watch(posts, value => {
-    console.log(value)
-})
-//
-// const posts = ref([])
-//
-// onMounted(() => {
-//     fetch('http://127.0.0.1:8000/graphql', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//             query: `
-//         query {
-//           posts {
-//             data {
-//               id
-//               title
-//             }
-//           }
-//         }
-//       `,
-//         }),
-//     })
-//     .then(res => res.json())
-//     .then(result => {
-//         console.log(result)
-//         posts.value = result.data.posts.data
-//     })
-// })
-//
-// function handleMutation() {
-//     fetch('http://127.0.0.1:8000/graphql', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//             query: `
-//         mutation {
-//           createPostResolver(user_id: 1, title: "Hello from Vue", body: "content from vue") {
-//             id
-//             title
-//           }
-//         }
-//       `,
-//         }),
-//     })
-//     .then(res => res.json())
-//     .then(result => {
-//         alert('Post was created')
-//     })
-// }
+  console.log(value);
+});
 
 </script>
 
@@ -87,14 +36,14 @@ watch(posts, value => {
     </div>
   </header>
 
-    <section>
-        <div v-if="loading">Loading...</div>
-        <ul v-else>
-            <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
-        </ul>
-<!--        <button @click="handleMutation">Mutation</button>-->
-    </section>
-<!--  <RouterView />-->
+  <section>
+    <div v-if="loading">Loading...</div>
+    <ul v-else>
+      <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+    </ul>
+    <!--        <button @click="handleMutation">Mutation</button>-->
+  </section>
+  <!--  <RouterView />-->
 </template>
 
 <style scoped>
